@@ -10,3 +10,6 @@ class Vehicle:
     vin: str | None = None
     registration_number: str | None = None
     notes: str | None = None
+
+    def __str__(self):
+        return f"{self.year} {self.manufacturer} {self.model}, {self.engine} — {self.mileage_km:,} km"
