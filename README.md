@@ -43,8 +43,8 @@ python -m pytest -v
 
 ## License
 
-Copyright © 2026 Artem Voitenko. All rights reserved.
+Copyright © 2026 Artem Voitenko.
 
-This project is provided for portfolio and educational viewing purposes only. No permission is granted to copy, modify, distribute, or use the source code without prior written permission.
+This project is shared for portfolio and educational purposes.
 
 The software is provided "as is", without warranty of any kind. The author is not liable for any damages or losses arising from its use.
