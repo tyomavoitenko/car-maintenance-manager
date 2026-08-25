@@ -1,33 +1,39 @@
 from car_maintenance.vehicle import Vehicle
 from car_maintenance.service_record import ServiceRecord
 from datetime import date
+from car_maintenance.maintenance_category import MaintenanceCategory
+from car_maintenance.maintenance_check import check_maintenance
+from car_maintenance.maintenance_rule import MaintenanceRule
 
-vehicle = Vehicle(
+golf = Vehicle(
     manufacturer="VW",
     model="Golf",
     year=2001,
     engine="1.9 TDI",
+    mileage_km=280_500,
+)
+
+oil_change = ServiceRecord(
+    date=date(2025, 9, 15),
     mileage_km=280_000,
+    description="Oil change",
+    parts_cost=200.00,
+    category=MaintenanceCategory.ENGINE_OIL_AND_FILTER
+)
+golf.add_service_record(oil_change)
+
+golf_engine_oil_rule = MaintenanceRule(
+    category=MaintenanceCategory.ENGINE_OIL_AND_FILTER,
+    description="Engine oil and filter maintenance rule for my Golf Mk4",
+    interval_km=10_000,
+    interval_months=12,
 )
 
-record_1 = ServiceRecord(
-    date=date(2026, 7, 20),
-    mileage_km=275_000,
-    description="Clutch replacement",
-    parts_cost=350.00,
+maintenance_check = check_maintenance(
+    rule=golf_engine_oil_rule, 
+    vehicle=golf,
 )
 
-record_2 = ServiceRecord(
-    date=date(2026, 8, 12),
-    mileage_km=277_256,
-    description="Front coil springs replacement",
-    parts_cost=115.00,
-)
-
-vehicle.add_service_record(record_1)
-vehicle.add_service_record(record_2)
-
-print(vehicle)
-
-for record in sorted(vehicle.service_records, key=lambda r: r.date):
-    print(record)
+print("Status: ", maintenance_check.status.name)
+print("Next due(km): ", maintenance_check.next_due_km)
+print("Next due date: ", maintenance_check.next_due_date)

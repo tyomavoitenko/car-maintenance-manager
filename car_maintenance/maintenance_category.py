@@ -1,0 +1,21 @@
+from enum import Enum
+
+class MaintenanceCategory(Enum):
+    ENGINE_OIL_AND_FILTER = "engine_oil_and_filter"
+    TRANSMISSION_OIL = "transmission_oil"
+    AUTOMATIC_TRANSMISSION_FLUID = "automatic_transmission_fluid"
+    CVT_FLUID = "cvt_fluid"
+    DCT_FLUID = "dct_fluid"
+    DIFFERENTIAL_OIL = "differential_oil"
+    TRANSFER_CASE_OIL = "transfer_case_oil"
+    COOLANT = "coolant"
+    BRAKE_FLUID = "brake_fluid"
+    POWER_STEERING_FLUID = "power_steering_fluid"
+    AIR_FILTER = "air_filter"
+    CABIN_FILTER = "cabin_filter"
+    FUEL_FILTER = "fuel_filter"
+    TIMING_BELT = "timing_belt"
+    ACCESSORY_DRIVE_BELT = "accessory_drive_belt"
+    SPARK_PLUGS = "spark_plugs"
+    TIRES = "tires"
+    WIPER_BLADES = "wiper_blades"
