@@ -1,6 +1,7 @@
 from car_maintenance.vehicle import Vehicle
 from car_maintenance.service_record import ServiceRecord
 from datetime import date
+from car_maintenance.maintenance_category import MaintenanceCategory
 
 vehicle = Vehicle(
     manufacturer="VW",
@@ -11,10 +12,11 @@ vehicle = Vehicle(
 )
 
 record_1 = ServiceRecord(
-    date=date(2026, 7, 20),
-    mileage_km=275_000,
-    description="Clutch replacement",
-    parts_cost=350.00,
+    date=date(2026, 3, 15),
+    mileage_km=280_000,
+    description="Oil change",
+    parts_cost=200.00,
+    category=MaintenanceCategory.ENGINE_OIL_AND_FILTER
 )
 
 record_2 = ServiceRecord(
