@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import date
+from car_maintenance.maintenance_category import MaintenanceCategory
 
 @dataclass
 class ServiceRecord:
@@ -8,6 +9,7 @@ class ServiceRecord:
     description: str
     parts_cost: float = 0.0
     labor_cost: float = 0.0
+    category: MaintenanceCategory | None = None
     workshop: str | None = None
     notes: str | None = None
 
