@@ -7,12 +7,13 @@ This is a personal learning project, built from scratch to learn Python properly
 ## What it does so far
 
 - Track a vehicle's basic details (manufacturer, model, year, engine, mileage).
-- Log service and repair records against a vehicle, with dates, mileage, and costs.
-- Define recurring maintenance rules (e.g. "engine oil every 10,000 km or 12 months") and automatically calculate whether each one is OK, due soon, overdue, or has no service history yet.
+- Log service and repair records against a vehicle, with dates, mileage, category, and costs.
+- Define recurring maintenance rules (e.g. "engine oil every 10,000 km or 12 months").
+- Maintenance dashboard — checks every rule against the vehicle's real service history and current mileage, reporting OK, due soon, overdue, or no history recorded, with km/days remaining.
 - Save and load a vehicle's data to/from a local JSON file, so it survives between runs.
-- Interactive CLI menu — add service records and view service history without editing code.
+- Interactive CLI menu for all of the above — no code editing required to use the app.
 
-This is a work in progress — a full maintenance dashboard covering multiple rules, and support for more than one vehicle, are still to come.
+This is a work in progress — support for more than one vehicle is still to come.
 
 ## Tech stack
 
@@ -34,7 +35,7 @@ Run the app:
 python -m car_maintenance
 ```
 
-The first run creates `data/vehicle.json` with sample data; subsequent runs load and reuse it. This file is gitignored — it's local runtime state, not source code.
+The first run prompts you to enter your vehicle's details; subsequent runs load `data/vehicle.json` and drop you straight into the menu. This file is gitignored — it's local runtime state, not source code.
 
 Run the tests:
 

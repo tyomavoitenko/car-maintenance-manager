@@ -5,6 +5,8 @@ from car_maintenance.vehicle import Vehicle
 import dataclasses
 from car_maintenance.service_record import ServiceRecord
 from car_maintenance.maintenance_category import MaintenanceCategory
+from car_maintenance.maintenance_rule import MaintenanceRule
+from pathlib import Path
 
 def _json_default(obj):
     if isinstance(obj, date):
@@ -15,7 +17,7 @@ def _json_default(obj):
         raise TypeError(f"Cannot serialize {type(obj)}")
 
 
-def save_vehicle(vehicle: Vehicle, path: str) -> None:
+def save_vehicle(vehicle: Vehicle, path: str | Path) -> None:
     with open(path, "w") as file:
         json.dump(
             dataclasses.asdict(vehicle),
@@ -25,7 +27,7 @@ def save_vehicle(vehicle: Vehicle, path: str) -> None:
         )
 
 
-def load_vehicle(path: str) -> Vehicle:
+def load_vehicle(path: str | Path) -> Vehicle:
     with open(path) as file:
         data = json.load(file)
 
@@ -42,6 +44,15 @@ def load_vehicle(path: str) -> Vehicle:
                 notes=r["notes"],
             ))
 
+        maintenance_rules = []
+        for r in data.get("maintenance_rules", []):
+            maintenance_rules.append(MaintenanceRule(
+                category=MaintenanceCategory(r["category"]),
+                description=r["description"],
+                interval_km=r["interval_km"],
+                interval_months=r["interval_months"],
+            ))
+
         return Vehicle(
             manufacturer=data["manufacturer"],
             model=data["model"],
@@ -52,4 +63,5 @@ def load_vehicle(path: str) -> Vehicle:
             registration_number=data["registration_number"],
             notes=data["notes"],
             service_records=service_records,
+            maintenance_rules=maintenance_rules,
         )
