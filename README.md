@@ -10,8 +10,9 @@ This is a personal learning project, built from scratch to learn Python properly
 - Log service and repair records against a vehicle, with dates, mileage, and costs.
 - Define recurring maintenance rules (e.g. "engine oil every 10,000 km or 12 months") and automatically calculate whether each one is OK, due soon, overdue, or has no service history yet.
 - Save and load a vehicle's data to/from a local JSON file, so it survives between runs.
+- Interactive CLI menu — add service records and view service history without editing code.
 
-This is a work in progress — interactive input and a full maintenance dashboard covering multiple rules are still to come.
+This is a work in progress — a full maintenance dashboard covering multiple rules, and support for more than one vehicle, are still to come.
 
 ## Tech stack
 

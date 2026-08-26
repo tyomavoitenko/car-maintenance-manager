@@ -37,7 +37,7 @@ def load_vehicle(path: str) -> Vehicle:
                 description=r["description"],
                 parts_cost=r["parts_cost"],
                 labor_cost=r["labor_cost"],
-                category=MaintenanceCategory(r["category"]),
+                category=MaintenanceCategory(r["category"]) if r["category"] is not None else None,
                 workshop=r["workshop"],
                 notes=r["notes"],
             ))
