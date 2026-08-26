@@ -40,7 +40,7 @@ def prompt_date(message: str) -> date:
         try:
             return date.fromisoformat(raw)
         except ValueError:
-            print("Please enter a valid date in the format yyyy-mm-dd")
+            print("Please enter a valid date (yyyy-mm-dd).")
 
 
 def prompt_category() -> MaintenanceCategory:
@@ -70,14 +70,15 @@ def prompt_optional_category() -> MaintenanceCategory | None:
 
 
 def create_vehicle_interactively() -> Vehicle:
-    manufacturer = input("Enter manufacturer: ")
-    model = input("Enter model: ")
-    year = prompt_int("Enter year: ")
-    engine = input("Enter engine: ")
-    mileage_km = prompt_int("Enter mileage: ")
-    vin = input("Enter VIN (optional): ") or None
-    registration_number = input("Enter registration number (optional): ") or None
-    notes = input("Enter notes (optional): ") or None
+    print("\nWelcome! To add a vehicle enter its details below.\n")
+    manufacturer = input("Manufacturer: ")
+    model = input("Model: ")
+    year = prompt_int("Year: ")
+    engine = input("Engine: ")
+    mileage_km = prompt_int("Mileage: ")
+    vin = input("VIN (optional): ") or None
+    registration_number = input("Registration number (optional): ") or None
+    notes = input("Notes (optional): ") or None
 
     return Vehicle(
         manufacturer=manufacturer,
@@ -117,9 +118,9 @@ def create_maintenance_rule_interactively() -> MaintenanceRule:
     while True:
         try:
             category = prompt_category()
-            description = input("Enter description: ")
-            interval_km = prompt_optional_int("Enter interval (km): ")
-            interval_month = prompt_optional_int("Enter interval (months): ")
+            description = input("Description: ")
+            interval_km = prompt_optional_int("Interval (km): ")
+            interval_month = prompt_optional_int("Interval (months): ")
 
             return MaintenanceRule(
                 category=category,
@@ -148,28 +149,32 @@ def get_remaining(check: MaintenanceCheck, current_mileage_km: int):
         return f"{(check.next_due_date - date.today()).days} days remaining"
     
 def run_menu(vehicle: Vehicle) -> None:
+    print(f"Your vehicle: {vehicle}")
     while True:
-        print("1) Add a service record")
+        print("\n1) Add a service record")
         print("2) Add a maintenance rule")
         print("3) View service history")
         print("4) Check maintenance status")
-        print("5) Exit")
-        choice = input("Choose an option: ")
+        print("5) Exit\n")
 
-        if choice == "1":
-            record = create_service_record_interactively()
-            vehicle.add_service_record(record)
-        elif choice == "2":
-            rule = create_maintenance_rule_interactively()
-            vehicle.add_maintenance_rule(rule)
-        elif choice == "3":
-            for record in sorted(vehicle.service_records, key=lambda r: r.date):
-                print(record)
-        elif choice == "4":
-            for rule in vehicle.maintenance_rules:
-                check = check_maintenance(rule, vehicle)
-                print(format_maintenance_check(check, vehicle.mileage_km))
-        elif choice == "5":
+        try:
+            choice = input("Choose an option: ")
+            if choice == "1":
+                record = create_service_record_interactively()
+                vehicle.add_service_record(record)
+            elif choice == "2":
+                rule = create_maintenance_rule_interactively()
+                vehicle.add_maintenance_rule(rule)
+            elif choice == "3":
+                for record in sorted(vehicle.service_records, key=lambda r: r.date):
+                    print(record)
+            elif choice == "4":
+                for rule in vehicle.maintenance_rules:
+                    check = check_maintenance(rule, vehicle)
+                    print(format_maintenance_check(check, vehicle.mileage_km))
+            elif choice == "5":
+                break
+            else:
+                print("Not a valid option, try again.")
+        except (KeyboardInterrupt, EOFError):
             break
-        else:
-            print("Not a valid option, try again.")
