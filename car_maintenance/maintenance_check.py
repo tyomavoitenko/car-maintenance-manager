@@ -9,10 +9,10 @@ DUE_SOON_KM = 1000
 DUE_SOON_MONTHS = 1
 
 class MaintenanceStatus(Enum):
-    OK = "ok"
-    DUE_SOON = "due_soon"
-    OVERDUE = "over_due"
-    UNKNOWN = "unknown"
+    OK = "OK"
+    DUE_SOON = "DUE SOON"
+    OVERDUE = "OVERDUE"
+    UNKNOWN = "UNKNOWN"
 
 @dataclass
 class MaintenanceCheck:
