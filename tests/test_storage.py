@@ -1,8 +1,9 @@
 import tests.helper as helper
 import car_maintenance.storage as storage
 from datetime import date
+from pathlib import Path
 
-def test_write_and_read_file(tmp_path):
+def test_write_and_read_file(tmp_path: Path) -> None:
     vehicle = helper.get_vehicle()
     vehicle.add_maintenance_rule(helper.get_rule())
     vehicle.add_service_record(helper.get_service_record(200_000, date(2026, 1, 1)))

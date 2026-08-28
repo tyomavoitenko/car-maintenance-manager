@@ -7,7 +7,6 @@ class InvalidMaintenanceRuleError(Exception):
 @dataclass
 class MaintenanceRule:
     category: MaintenanceCategory
-    description: str
     interval_km: int | None = None
     interval_months: int | None = None
 
@@ -18,3 +17,6 @@ class MaintenanceRule:
             raise InvalidMaintenanceRuleError("interval_km must be greater than zero")
         if self.interval_months is not None and self.interval_months <= 0:
             raise InvalidMaintenanceRuleError("interval_months must be greater than zero")
+
+
+

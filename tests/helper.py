@@ -17,7 +17,6 @@ def get_vehicle(mileage_km: int = 300_000):
 def get_rule():
     return MaintenanceRule(
         category=MaintenanceCategory.ENGINE_OIL_AND_FILTER,
-        description="Engine oil and filter maintenance rule",
         interval_km=10_000,
         interval_months=12,
     )
@@ -25,8 +24,7 @@ def get_rule():
 
 def get_service_record(mileage_km: int, service_date: date):
     return ServiceRecord(
-        date=service_date,
+        category=MaintenanceCategory.ENGINE_OIL_AND_FILTER,
         mileage_km=mileage_km,
-        description="Oil change",
-        category=MaintenanceCategory.ENGINE_OIL_AND_FILTER
+        date=service_date,
     )

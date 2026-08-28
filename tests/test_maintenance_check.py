@@ -41,7 +41,12 @@ import tests.helper as helper
         id="ok",
     ),
 ])
-def test_overdue_due_soon_ok_statuses(vehicle_mileage_km, service_mileage_km, service_date, status):
+def test_overdue_due_soon_ok_statuses(
+    vehicle_mileage_km: int, 
+    service_mileage_km: int, 
+    service_date: date, 
+    status: MaintenanceStatus,
+) -> None:
     vehicle = helper.get_vehicle(vehicle_mileage_km)
     service_record = helper.get_service_record(
         mileage_km=service_mileage_km, 
@@ -55,7 +60,7 @@ def test_overdue_due_soon_ok_statuses(vehicle_mileage_km, service_mileage_km, se
     assert maintenance_check.status == status
 
 
-def test_unknown_status():
+def test_unknown_status() -> None:
     maintenance_check = check_maintenance(
         rule=helper.get_rule(), 
         vehicle=helper.get_vehicle(),
