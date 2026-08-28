@@ -1,6 +1,8 @@
 from dataclasses import dataclass, field
-from car_maintenance.service_record import ServiceRecord
+
 from car_maintenance.maintenance_rule import MaintenanceRule
+from car_maintenance.service_record import ServiceRecord
+
 
 @dataclass
 class Vehicle:

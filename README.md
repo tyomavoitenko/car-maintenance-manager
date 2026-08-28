@@ -1,6 +1,8 @@
 # Car Maintenance Manager
 
-A command-line application for tracking a vehicle's complete maintenance and repair history, and telling you what maintenance is coming up — or already overdue — based on mileage and time intervals.
+[![CI](https://github.com/tyomavoitenko/car-maintenance-manager/actions/workflows/ci.yml/badge.svg)](https://github.com/tyomavoitenko/car-maintenance-manager/actions/workflows/ci.yml)
+
+A command-line application for tracking a vehicle's complete maintenance history, and telling you what maintenance is coming up — or already overdue — based on mileage and time intervals.
 
 This is a personal learning project, built from scratch to learn Python properly (beyond basic syntax) by building something real: a typed domain model, automated tests, and a CLI, evolving incrementally milestone by milestone rather than all at once.
 
@@ -15,13 +17,15 @@ This project is deliberately scoped to **recurring maintenance tracking only** �
 - Save and load a vehicle's data to/from a local JSON file, so it survives between runs.
 - Interactive CLI menu for all of the above — no code editing required to use the app.
 
-**Coming up:** a repository polish pass with CI, support for tracking more than one vehicle, and support for miles as an alternative to kilometers (currently hardcoded).
+**Coming up:** support for tracking more than one vehicle, and support for miles as an alternative to kilometers (currently hardcoded).
 
 ## Tech stack
 
 - Python 3.14
 - [`python-dateutil`](https://pypi.org/project/python-dateutil/) for calendar-correct date arithmetic
 - [`pytest`](https://pytest.org/) for testing
+- [`ruff`](https://docs.astral.sh/ruff/) for linting
+- GitHub Actions for CI (runs lint + tests on every push and PR)
 
 ## Getting started
 
@@ -39,10 +43,18 @@ python -m car_maintenance
 
 The first run prompts you to enter your vehicle's details; subsequent runs load `data/vehicle.json` and drop you straight into the menu. This file is gitignored — it's local runtime state, not source code.
 
+[`sample_data/vehicle_example.json`](sample_data/vehicle_example.json) shows what a populated vehicle looks like, with rules and service history covering every dashboard status (OK, due soon, overdue, and no history recorded).
+
 Run the tests:
 
 ```bash
 python -m pytest -v
+```
+
+Run the linter:
+
+```bash
+ruff check .
 ```
 
 ## License

@@ -1,9 +1,18 @@
-from car_maintenance.vehicle import Vehicle
-from car_maintenance.service_record import ServiceRecord
 from datetime import date
+
 from car_maintenance.maintenance_category import MaintenanceCategory
-from car_maintenance.maintenance_rule import MaintenanceRule, InvalidMaintenanceRuleError
-from car_maintenance.maintenance_check import MaintenanceCheck, MaintenanceStatus, check_maintenance
+from car_maintenance.maintenance_check import (
+    MaintenanceCheck,
+    MaintenanceStatus,
+    check_maintenance,
+)
+from car_maintenance.maintenance_rule import (
+    InvalidMaintenanceRuleError,
+    MaintenanceRule,
+)
+from car_maintenance.service_record import ServiceRecord
+from car_maintenance.vehicle import Vehicle
+
 
 def prompt_int(message: str) -> int:
     while True:

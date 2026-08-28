@@ -1,12 +1,14 @@
+import dataclasses
 import json
 from datetime import date
 from enum import Enum
-from car_maintenance.vehicle import Vehicle
-import dataclasses
-from car_maintenance.service_record import ServiceRecord
+from pathlib import Path
+
 from car_maintenance.maintenance_category import MaintenanceCategory
 from car_maintenance.maintenance_rule import MaintenanceRule
-from pathlib import Path
+from car_maintenance.service_record import ServiceRecord
+from car_maintenance.vehicle import Vehicle
+
 
 def _json_default(obj: object) -> object:
     if isinstance(obj, date):
