@@ -43,8 +43,6 @@ python -m car_maintenance
 
 The first run prompts you to enter your vehicle's details; subsequent runs load `data/vehicle.json` and drop you straight into the menu. This file is gitignored — it's local runtime state, not source code.
 
-[`sample_data/vehicle_example.json`](sample_data/vehicle_example.json) shows what a populated vehicle looks like, with rules and service history covering every dashboard status (OK, due soon, overdue, and no history recorded).
-
 Run the tests:
 
 ```bash
