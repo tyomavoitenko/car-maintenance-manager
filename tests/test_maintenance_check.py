@@ -1,8 +1,11 @@
 from datetime import date
-from car_maintenance.maintenance_check import check_maintenance, MaintenanceStatus
-from dateutil.relativedelta import relativedelta
+
 import pytest
-import tests.helper as helper
+from dateutil.relativedelta import relativedelta
+
+from car_maintenance.maintenance_check import MaintenanceStatus, check_maintenance
+from tests import helper
+
 
 @pytest.mark.parametrize("vehicle_mileage_km, service_mileage_km, service_date, status", [
     pytest.param(

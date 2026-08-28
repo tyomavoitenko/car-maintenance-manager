@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from datetime import date
+
 from car_maintenance.maintenance_category import MaintenanceCategory
+
 
 @dataclass
 class ServiceRecord:

@@ -1,8 +1,10 @@
-from car_maintenance.vehicle import Vehicle
-from car_maintenance.service_record import ServiceRecord
 from datetime import date
+
 from car_maintenance.maintenance_category import MaintenanceCategory
 from car_maintenance.maintenance_rule import MaintenanceRule
+from car_maintenance.service_record import ServiceRecord
+from car_maintenance.vehicle import Vehicle
+
 
 def get_vehicle(mileage_km: int = 300_000):
     return Vehicle(

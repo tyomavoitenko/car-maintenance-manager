@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+
 from car_maintenance.maintenance_category import MaintenanceCategory
+
 
 class InvalidMaintenanceRuleError(Exception):
     pass

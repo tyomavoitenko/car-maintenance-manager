@@ -1,5 +1,4 @@
-import car_maintenance.storage as storage
-import car_maintenance.cli as cli
+from car_maintenance import cli, storage
 
 try:
     vehicle = storage.load_vehicle("data/vehicle.json")

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class MaintenanceCategory(Enum):
     ENGINE_OIL_AND_FILTER = "Engine oil and filter"
     TRANSMISSION_OIL = "Transmission oil"

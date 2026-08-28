@@ -1,6 +1,6 @@
 # Car Maintenance Manager
 
-A command-line application for tracking a vehicle's complete maintenance and repair history, and telling you what maintenance is coming up — or already overdue — based on mileage and time intervals.
+A command-line application for tracking a vehicle's complete maintenance history, and telling you what maintenance is coming up — or already overdue — based on mileage and time intervals.
 
 This is a personal learning project, built from scratch to learn Python properly (beyond basic syntax) by building something real: a typed domain model, automated tests, and a CLI, evolving incrementally milestone by milestone rather than all at once.
 

@@ -1,9 +1,11 @@
-from enum import Enum
 from dataclasses import dataclass
-from car_maintenance.maintenance_rule import MaintenanceRule
 from datetime import date
-from car_maintenance.vehicle import Vehicle
+from enum import Enum
+
 from dateutil.relativedelta import relativedelta
+
+from car_maintenance.maintenance_rule import MaintenanceRule
+from car_maintenance.vehicle import Vehicle
 
 DUE_SOON_KM = 1000
 DUE_SOON_MONTHS = 1
