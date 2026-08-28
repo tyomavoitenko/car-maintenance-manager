@@ -8,7 +8,7 @@ from car_maintenance.maintenance_category import MaintenanceCategory
 from car_maintenance.maintenance_rule import MaintenanceRule
 from pathlib import Path
 
-def _json_default(obj):
+def _json_default(obj: object) -> object:
     if isinstance(obj, date):
         return obj.isoformat()
     elif isinstance(obj, Enum):
@@ -31,24 +31,18 @@ def load_vehicle(path: str | Path) -> Vehicle:
     with open(path) as file:
         data = json.load(file)
 
-        service_records = []
+        service_records: list[ServiceRecord] = []
         for r in data["service_records"]:
             service_records.append(ServiceRecord(
-                date=date.fromisoformat(r["date"]),
+                category=MaintenanceCategory(r["category"]),
                 mileage_km=r["mileage_km"],
-                description=r["description"],
-                parts_cost=r["parts_cost"],
-                labor_cost=r["labor_cost"],
-                category=MaintenanceCategory(r["category"]) if r["category"] is not None else None,
-                workshop=r["workshop"],
-                notes=r["notes"],
+                date=date.fromisoformat(r["date"]),
             ))
 
-        maintenance_rules = []
+        maintenance_rules: list[MaintenanceRule] = []
         for r in data.get("maintenance_rules", []):
             maintenance_rules.append(MaintenanceRule(
                 category=MaintenanceCategory(r["category"]),
-                description=r["description"],
                 interval_km=r["interval_km"],
                 interval_months=r["interval_months"],
             ))
@@ -59,9 +53,6 @@ def load_vehicle(path: str | Path) -> Vehicle:
             year=data["year"],
             engine=data["engine"],
             mileage_km=data["mileage_km"],
-            vin=data["vin"],
-            registration_number=data["registration_number"],
-            notes=data["notes"],
             service_records=service_records,
             maintenance_rules=maintenance_rules,
         )

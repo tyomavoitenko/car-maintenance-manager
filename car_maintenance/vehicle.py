@@ -9,11 +9,8 @@ class Vehicle:
     year: int
     engine: str
     mileage_km: int
-    vin: str | None = None
-    registration_number: str | None = None
-    notes: str | None = None
-    service_records: list[ServiceRecord] = field(default_factory=list)
-    maintenance_rules: list[MaintenanceRule] = field(default_factory=list)
+    service_records: list[ServiceRecord] = field(default_factory=list[ServiceRecord])
+    maintenance_rules: list[MaintenanceRule] = field(default_factory=list[MaintenanceRule])
 
     def __str__(self):
         return f"{self.year} {self.manufacturer} {self.model}, {self.engine} — {self.mileage_km:,} km"
@@ -23,3 +20,6 @@ class Vehicle:
 
     def add_maintenance_rule(self, rule: MaintenanceRule) -> None:
         self.maintenance_rules.append(rule)
+
+    def update_mileage(self, new_mileage_km: int) -> None:
+        self.mileage_km = new_mileage_km

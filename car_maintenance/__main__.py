@@ -6,5 +6,6 @@ try:
 except FileNotFoundError:
     vehicle = cli.create_vehicle_interactively()
 
-cli.run_menu(vehicle)
-storage.save_vehicle(vehicle, path="data/vehicle.json")
+if vehicle is not None:
+    cli.run_menu(vehicle)
+    storage.save_vehicle(vehicle, path="data/vehicle.json")

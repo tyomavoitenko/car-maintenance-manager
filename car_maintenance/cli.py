@@ -25,15 +25,6 @@ def prompt_optional_int(message: str) -> int | None:
             print("Please enter a valid whole number.")
 
 
-def prompt_float(message: str) -> float:
-    while True:
-        raw = input(message)
-        try:
-            return float(raw)
-        except ValueError:
-            print("Please enter a valid decimal number.")
-
-
 def prompt_date(message: str) -> date:
     while True:
         raw = input(message)
@@ -55,76 +46,50 @@ def prompt_category() -> MaintenanceCategory:
             print("Not a valid option, try again.")
 
 
-def prompt_optional_category() -> MaintenanceCategory | None:
-    categories = list(MaintenanceCategory)
+def create_vehicle_interactively() -> Vehicle | None:
+    print("\nWelcome to Car Maintenance Manager 🚗\nTo add a vehicle enter its details below 👇\n")
     while True:
-        for i, c in enumerate(categories, start=1):
-            print(f"{i}) {c.value}")
-        choice = input("Choose an option: ")
-        if not choice:
-            return None
         try:
-            return categories[int(choice) - 1]
-        except (ValueError, IndexError):
-            print("Not a valid option, try again.")
+            manufacturer = input("Manufacturer: ")
+            model = input("Model: ")
+            year = prompt_int("Year: ")
+            engine = input("Engine: ")
+            mileage_km = prompt_int("Mileage: ")
 
-
-def create_vehicle_interactively() -> Vehicle:
-    print("\nWelcome! To add a vehicle enter its details below.\n")
-    manufacturer = input("Manufacturer: ")
-    model = input("Model: ")
-    year = prompt_int("Year: ")
-    engine = input("Engine: ")
-    mileage_km = prompt_int("Mileage: ")
-    vin = input("VIN (optional): ") or None
-    registration_number = input("Registration number (optional): ") or None
-    notes = input("Notes (optional): ") or None
-
-    return Vehicle(
-        manufacturer=manufacturer,
-        model=model,
-        year=year,
-        engine=engine,
-        mileage_km=mileage_km,
-        vin=vin,
-        registration_number=registration_number,
-        notes=notes,
-    )
+            return Vehicle(
+                manufacturer=manufacturer,
+                model=model,
+                year=year,
+                engine=engine,
+                mileage_km=mileage_km,
+            )
+        except (KeyboardInterrupt, EOFError):
+            break
 
 
 def create_service_record_interactively() -> ServiceRecord:
-    service_date = prompt_date("Enter date (yyyy-mm-dd): ")
-    mileage_km = prompt_int("Enter mileage (km): ")
-    description = input("Enter description: ")
-    parts_cost = prompt_float("Enter parts cost: ")
-    labor_cost = prompt_float("Enter labor cost: ")
-    category = prompt_optional_category()
-    workshop = input("Enter workshop (optional): ") or None
-    notes = input("Enter notes (optional): ") or None
+    print("Enter the service record details below 👇\n")
+    category = prompt_category()
+    mileage_km = prompt_int("Mileage (km): ")
+    service_date = prompt_date("Date (yyyy-mm-dd): ")
 
     return ServiceRecord(
         date=service_date,
         mileage_km=mileage_km,
-        description=description,
-        parts_cost=parts_cost,
-        labor_cost=labor_cost,
         category=category,
-        workshop=workshop,
-        notes=notes,
     )
 
 
 def create_maintenance_rule_interactively() -> MaintenanceRule:
+    print("Enter the maintenance rule details below 👇\n")
     while True:
         try:
             category = prompt_category()
-            description = input("Description: ")
             interval_km = prompt_optional_int("Interval (km): ")
             interval_month = prompt_optional_int("Interval (months): ")
 
             return MaintenanceRule(
                 category=category,
-                description=description,
                 interval_km=interval_km,
                 interval_months=interval_month,
             )
@@ -135,46 +100,63 @@ def create_maintenance_rule_interactively() -> MaintenanceRule:
 def format_maintenance_check(check: MaintenanceCheck, current_mileage_km: int):
     match check.status:
         case MaintenanceStatus.OK | MaintenanceStatus.DUE_SOON:
-            return f"{check.status.value}: {check.rule.description} — {get_remaining(check, current_mileage_km)}"
+            return f"{check.status.value}: {check.rule.category.value} — {get_remaining(check, current_mileage_km)}"
         case MaintenanceStatus.OVERDUE:
-            return f"{check.status.value}: {check.rule.description}"
+            return f"{check.status.value}: {check.rule.category.value}"
         case MaintenanceStatus.UNKNOWN:
-            return f"{check.status.value}: {check.rule.description} — no service history recorded"
+            return f"{check.status.value}: {check.rule.category.value} — no service history recorded"
 
 
-def get_remaining(check: MaintenanceCheck, current_mileage_km: int):
+def get_remaining(check: MaintenanceCheck, current_mileage_km: int) -> str:
     if check.next_due_km is not None:
         return f"{check.next_due_km - current_mileage_km} km remaining"
-    else: 
-        return f"{(check.next_due_date - date.today()).days} days remaining"
+    assert check.next_due_date is not None
+    return f"{(check.next_due_date - date.today()).days} days remaining"
+    
     
 def run_menu(vehicle: Vehicle) -> None:
-    print(f"Your vehicle: {vehicle}")
+    print(f"\nYour vehicle: {vehicle}")
     while True:
-        print("\n1) Add a service record")
-        print("2) Add a maintenance rule")
-        print("3) View service history")
-        print("4) Check maintenance status")
-        print("5) Exit\n")
+        print("\n1) Update current mileage")
+        print("2) Check maintenance status")
+        print("3) Add a service record")
+        print("4) Add a maintenance rule")
+        print("5) View service history")
+        print("6) Exit\n")
 
         try:
             choice = input("Choose an option: ")
-            if choice == "1":
-                record = create_service_record_interactively()
-                vehicle.add_service_record(record)
-            elif choice == "2":
-                rule = create_maintenance_rule_interactively()
-                vehicle.add_maintenance_rule(rule)
-            elif choice == "3":
-                for record in sorted(vehicle.service_records, key=lambda r: r.date):
-                    print(record)
-            elif choice == "4":
-                for rule in vehicle.maintenance_rules:
-                    check = check_maintenance(rule, vehicle)
-                    print(format_maintenance_check(check, vehicle.mileage_km))
-            elif choice == "5":
-                break
-            else:
-                print("Not a valid option, try again.")
+            match choice:
+                case "1":
+                    while True:
+                        new_mileage = prompt_int("Current mileage: ")
+                        if new_mileage >= vehicle.mileage_km:
+                            vehicle.update_mileage(new_mileage)
+                            break
+                        else: 
+                            print(f"Mileage can't decrease — your car's current reading is {vehicle.mileage_km:,} km.")
+                case "2":
+                    if vehicle.maintenance_rules:
+                        for rule in vehicle.maintenance_rules:
+                            check = check_maintenance(rule, vehicle)
+                            print(format_maintenance_check(check, vehicle.mileage_km))
+                    else:
+                        print("Please add a maintenance rule first.")
+                case "3":
+                    record = create_service_record_interactively()
+                    vehicle.add_service_record(record)
+                case "4":
+                    rule = create_maintenance_rule_interactively()
+                    vehicle.add_maintenance_rule(rule)
+                case "5":
+                    if vehicle.service_records:
+                        for record in sorted(vehicle.service_records, key=lambda r: r.date):
+                            print(record)
+                    else:
+                        print("No service history recorded.")
+                case "6":
+                    break
+                case _:
+                    print("Not a valid option, try again.")
         except (KeyboardInterrupt, EOFError):
             break
