@@ -1,0 +1,46 @@
+{
+  "manufacturer": "VW",
+  "model": "Golf Mk4",
+  "year": 2001,
+  "engine": "1.9 TDI",
+  "mileage_km": 288000,
+  "service_records": [
+    {
+      "category": "Spark plugs",
+      "date": "2023-01-15",
+      "mileage_km": 248800
+    },
+    {
+      "category": "Brake fluid",
+      "date": "2024-06-01",
+      "mileage_km": 265000
+    },
+    {
+      "category": "Engine oil and filter",
+      "date": "2026-06-01",
+      "mileage_km": 283500
+    }
+  ],
+  "maintenance_rules": [
+    {
+      "category": "Engine oil and filter",
+      "interval_km": 10000,
+      "interval_months": 12
+    },
+    {
+      "category": "Brake fluid",
+      "interval_km": null,
+      "interval_months": 24
+    },
+    {
+      "category": "Spark plugs",
+      "interval_km": 40000,
+      "interval_months": null
+    },
+    {
+      "category": "Tires",
+      "interval_km": 40000,
+      "interval_months": null
+    }
+  ]
+}
